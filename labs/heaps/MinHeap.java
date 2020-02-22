@@ -111,19 +111,17 @@ public class MinHeap<T extends Comparable<T>> implements PriorityQueue<T> {
 		// As described in lecture
 		//
 		if (loc > 1 && array[loc].getValue().compareTo(array[loc/2].getValue()) < 0) {
-			//temp for parent
 			Decreaser<T> parent = array[loc/2];
 			parent.loc = loc;
-			//move child to parent: loc and value
 			array[loc/2] = array[loc];
 			array[loc/2].loc = loc/2;
-			//move parent into child's position
 			array[loc] = parent;
-			decrease(loc/2);
 			ticker.tick(7);
+			decrease(loc/2);
+			
 		}
 	}
-		//TODO: create recursive portion
+	
 	/**
 	 * Described in lecture, this method will return a minimum element from
 	 *    the heap.  The hole that is created is handled as described in
@@ -132,6 +130,7 @@ public class MinHeap<T extends Comparable<T>> implements PriorityQueue<T> {
 	 *    maintained at the root node (index 1 into the array).
 	 */
 	public T extractMin() {
+		ticker.tick(5);
 		T ans = array[1].getValue();
 		//
 		// There is effectively a hole at the root, at location 1 now.
@@ -139,18 +138,15 @@ public class MinHeap<T extends Comparable<T>> implements PriorityQueue<T> {
 		//    Be sure to store null in an array slot if it is no longer
 		//      part of the active heap
 		//
-		// FIXME
-		//
 		if(size == 0) {
 			return null;
 		}
 		
 		array[1] = array[size];
 		array[1].loc = 1;
-		array[size] = null;
-		size--; 
 		heapify(1);
-		ticker.tick(5);
+		array[size] = null;
+		size--;
 		return ans;
 	}
 
@@ -163,77 +159,28 @@ public class MinHeap<T extends Comparable<T>> implements PriorityQueue<T> {
 	 */
 	private void heapify(int where) {
 		//
-		// As described in lecture
-		//  FIXME
-		//
-		
-		
+		// As described in lecture	
 		if(where*2 + 1 <= size && (array[where].getValue().compareTo(array[where*2].getValue()) > 0
 				|| array[where].getValue().compareTo(array[where*2+1].getValue()) > 0)) {
 			if(array[where*2].getValue().compareTo(array[where*2+1].getValue()) < 0) {
-				//store temp as child
 				Decreaser <T> child = array[where*2];
 				child.loc = where;
-				//move parent to child
 				array[where*2] = array[where];
 				array[where*2].loc = where*2; 
-				//use temp to move child to parent
 				array[where] = child;
-				heapify(where*2); //recursive call
 				ticker.tick(9);
-				
-				
-//				//store temp as old child 
-//				T childVal = array[where*2].getValue();
-//				//move parent to child: loc and value
-//				array[where*2] = array[where];
-//				array[where*2].loc = where*2; //TODO: need to fix
-//				array[where].decrease(childVal);
+				heapify(where*2);
 			}
 			else{
-				//store temp as child
 				Decreaser <T> child = array[where*2+1];
 				child.loc = where;
-				//move parent to child
 				array[where*2+1] = array[where];
 				array[where*2+1].loc = where*2+1;
-				
-				//use temp to move child into parent
 				array[where] = child;
-				heapify(where*2+1); //recursive call
 				ticker.tick(9);
-				
-//				T childVal = array[where*2+1].getValue();
-//				array[where*2+1] = array[where];
-//				array[where*2+1].loc = where*2+1; //TODO: need to fix
-//				array[where].decrease(childVal);
+				heapify(where*2+1); //recursive call
 			}
 			
-			
-//			if(array[where*2].getValue().compareTo(array[where*2+1].getValue()) < 0) {
-////				Decreaser<T> child = array[where]; //temp stores old child (2)
-////				child.loc = where*2; //(2)
-//				T temp = array[where*2].getValue(); //(1)
-//				//move parent to child
-//				array[where*2] = array[where];
-//				array[where*2].loc = where*2;
-////				array[where] = child; //use temp for new parent (2)
-//				
-//				array[where].decrease(temp); //(1)
-//						
-//				heapify(where*2); //recursive call to heapify
-//			}
-//			else{
-////				Decreaser<T> child = array[where]; //temp stores old child (2)
-////				child.loc = where*2; //(2)
-//				T temp = array[where*2+1].getValue(); //(1)
-//				//move parent to child
-//				array[where*2+1] = array[where];
-//				array[where*2+1].loc = where*2+1;
-////				array[where] = child; //use temp for new parent (2)
-//				array[where].decrease(temp); //(1)
-//				heapify(where*2+1); //recursive call to heapify
-//			}
 		}
 	}
 
