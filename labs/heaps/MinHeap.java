@@ -69,8 +69,9 @@ public class MinHeap<T extends Comparable<T>> implements PriorityQueue<T> {
 		// You have to now put ans into the heap array
 		//   Recall in class we reduced insert to decrease
 		//
-		// FIXME
-		//
+		array[size]= ans;
+		decrease(size); //recursively switches parent with child if necessary
+		ticker.tick(3);
 		return ans;
 	}
 
@@ -109,9 +110,20 @@ public class MinHeap<T extends Comparable<T>> implements PriorityQueue<T> {
 		//
 		// As described in lecture
 		//
-		
+		if (loc > 1 && array[loc].getValue().compareTo(array[loc/2].getValue()) < 0) {
+			//temp for parent
+			Decreaser<T> parent = array[loc/2];
+			parent.loc = loc;
+			//move child to parent: loc and value
+			array[loc/2] = array[loc];
+			array[loc/2].loc = loc/2;
+			//move parent into child's position
+			array[loc] = parent;
+			decrease(loc/2);
+			ticker.tick(7);
+		}
 	}
-	
+		//TODO: create recursive portion
 	/**
 	 * Described in lecture, this method will return a minimum element from
 	 *    the heap.  The hole that is created is handled as described in
@@ -129,6 +141,16 @@ public class MinHeap<T extends Comparable<T>> implements PriorityQueue<T> {
 		//
 		// FIXME
 		//
+		if(size == 0) {
+			return null;
+		}
+		
+		array[1] = array[size];
+		array[1].loc = 1;
+		array[size] = null;
+		size--; 
+		heapify(1);
+		ticker.tick(5);
 		return ans;
 	}
 
@@ -144,8 +166,77 @@ public class MinHeap<T extends Comparable<T>> implements PriorityQueue<T> {
 		// As described in lecture
 		//  FIXME
 		//
+		
+		
+		if(where*2 + 1 <= size && (array[where].getValue().compareTo(array[where*2].getValue()) > 0
+				|| array[where].getValue().compareTo(array[where*2+1].getValue()) > 0)) {
+			if(array[where*2].getValue().compareTo(array[where*2+1].getValue()) < 0) {
+				//store temp as child
+				Decreaser <T> child = array[where*2];
+				child.loc = where;
+				//move parent to child
+				array[where*2] = array[where];
+				array[where*2].loc = where*2; 
+				//use temp to move child to parent
+				array[where] = child;
+				heapify(where*2); //recursive call
+				ticker.tick(9);
+				
+				
+//				//store temp as old child 
+//				T childVal = array[where*2].getValue();
+//				//move parent to child: loc and value
+//				array[where*2] = array[where];
+//				array[where*2].loc = where*2; //TODO: need to fix
+//				array[where].decrease(childVal);
+			}
+			else{
+				//store temp as child
+				Decreaser <T> child = array[where*2+1];
+				child.loc = where;
+				//move parent to child
+				array[where*2+1] = array[where];
+				array[where*2+1].loc = where*2+1;
+				
+				//use temp to move child into parent
+				array[where] = child;
+				heapify(where*2+1); //recursive call
+				ticker.tick(9);
+				
+//				T childVal = array[where*2+1].getValue();
+//				array[where*2+1] = array[where];
+//				array[where*2+1].loc = where*2+1; //TODO: need to fix
+//				array[where].decrease(childVal);
+			}
+			
+			
+//			if(array[where*2].getValue().compareTo(array[where*2+1].getValue()) < 0) {
+////				Decreaser<T> child = array[where]; //temp stores old child (2)
+////				child.loc = where*2; //(2)
+//				T temp = array[where*2].getValue(); //(1)
+//				//move parent to child
+//				array[where*2] = array[where];
+//				array[where*2].loc = where*2;
+////				array[where] = child; //use temp for new parent (2)
+//				
+//				array[where].decrease(temp); //(1)
+//						
+//				heapify(where*2); //recursive call to heapify
+//			}
+//			else{
+////				Decreaser<T> child = array[where]; //temp stores old child (2)
+////				child.loc = where*2; //(2)
+//				T temp = array[where*2+1].getValue(); //(1)
+//				//move parent to child
+//				array[where*2+1] = array[where];
+//				array[where*2+1].loc = where*2+1;
+////				array[where] = child; //use temp for new parent (2)
+//				array[where].decrease(temp); //(1)
+//				heapify(where*2+1); //recursive call to heapify
+//			}
+		}
 	}
-	
+
 	/**
 	 * Does the heap contain anything currently?
 	 * I implemented this for you.  Really, no need to thank me!
