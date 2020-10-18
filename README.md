@@ -15,6 +15,8 @@ The key implemented functions for this project are `insert`, `decrease`, `extrac
  - `extractMin()`: extracts the root of the tree, fills in the proper code, and calls on heapify to maintain the minimum heap property.
  - `heapify(int where)`: recursively replaces the child node at `where` with its parent down the treee if child's value is smaller than the parent's value
 
+## Asymptotic Complexity
+The benefit of a minimum heap is that all functions run in a sub-linear time of &Theta;(log(n)).
 
 
 
