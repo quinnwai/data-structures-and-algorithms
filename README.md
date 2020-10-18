@@ -16,9 +16,6 @@ The key implemented functions for this project are `insert`, `decrease`, `extrac
  -`heapify(int where)`: recursively replaces the child node at `where` with its parent down the treee if child's value is smaller than the parent's value
 
 
-*Note: the original directory is located at cse247-s20-students-lab3*
-
-
 
 
 
