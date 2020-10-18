@@ -4,7 +4,7 @@
 Familiarize myself with the main functions used to maintain minimum heap properties. Used as lab work for a data structures and algoithms course.
 
 ## Content Path
-/minimum-heap-impl/tree/master/labs/heaps/MinHeap.java
+https://github.com/quinnwai//minimum-heap-impl/tree/master/labs/heaps/MinHeap.java
 
 ## Overview
 All data is stored in an array of Decreaser objects which contain a value, heap reference, and location. The array begins at index 1.
